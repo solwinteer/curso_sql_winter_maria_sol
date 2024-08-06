@@ -32,7 +32,7 @@ CREATE TABLE Citas (
     id_paciente INT NOT NULL, -- ID del paciente (clave foránea)
     id_doctor INT NOT NULL, -- ID del doctor (clave foránea)
     fecha_hora DATETIME NOT NULL, -- Fecha y hora de la cita
-    motivo TEXT, -- Motivo de la cita
+    motivo VARCHAR(5000), -- Motivo de la cita
     FOREIGN KEY (id_paciente) REFERENCES Pacientes(id), -- Relación con Pacientes
     FOREIGN KEY (id_doctor) REFERENCES Doctores(id) -- Relación con Doctores
 );
@@ -42,7 +42,7 @@ CREATE TABLE Tratamientos (
     id INT IDENTITY(1,1) PRIMARY KEY, -- ID del tratamiento
     id_paciente INT NOT NULL, -- ID del paciente (clave foránea)
     id_doctor INT NOT NULL, -- ID del doctor (clave foránea)
-    descripcion TEXT, -- Descripción del tratamiento
+    descripcion VARCHAR(5000), -- Descripción del tratamiento
     fecha_inicio DATE, -- Fecha de inicio del tratamiento
     fecha_fin DATE, -- Fecha de fin del tratamiento
     FOREIGN KEY (id_paciente) REFERENCES Pacientes(id), -- Relación con Pacientes
