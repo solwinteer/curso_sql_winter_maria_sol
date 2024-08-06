@@ -55,7 +55,7 @@ CREATE TABLE Diagnosticos (
     id_paciente INT NOT NULL, -- ID del paciente (clave foránea)
     id_doctor INT NOT NULL, -- ID del doctor (clave foránea)
     fecha DATE NOT NULL, -- Fecha del diagnóstico
-    descripcion TEXT, -- Descripción del diagnóstico
+    descripcion VARCHAR(MAX), -- Descripción del diagnóstico
     FOREIGN KEY (id_paciente) REFERENCES Pacientes(id), -- Relación con Pacientes
     FOREIGN KEY (id_doctor) REFERENCES Doctores(id) -- Relación con Doctores
 );
