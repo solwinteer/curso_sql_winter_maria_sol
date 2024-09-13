@@ -1,105 +1,105 @@
 -- Crear la base de datos
-CREATE DATABASE ClinicaMedica;
+CREATE DATABASE ClinicaMedica
 
 -- Usar la base de datos
 USE ClinicaMedica;
 
 -- Crear la tabla de pacientes
 CREATE TABLE Pacientes (
-    id INT IDENTITY(1,1) PRIMARY KEY, -- ID del paciente
+    id INT PRIMARY KEY, -- ID del paciente
     nombre VARCHAR(100) NOT NULL, -- Nombre del paciente
     apellido VARCHAR(100) NOT NULL, -- Apellido del paciente
     fecha_nacimiento DATE, -- Fecha de nacimiento del paciente
-    direccion VARCHAR(255), -- Direcci髇 del paciente
-    telefono VARCHAR(20), -- Tel閒ono del paciente
+    direccion VARCHAR(255), -- Direcci贸n del paciente
+    telefono VARCHAR(20), -- Tel茅fono del paciente
     email VARCHAR(100), -- Email del paciente
-    genero VARCHAR(100) -- G閚ero del paciente
+    genero VARCHAR(100) -- G茅nero del paciente
 );
 
 -- Crear la tabla de doctores
 CREATE TABLE Doctores (
-    id INT IDENTITY(1,1) PRIMARY KEY, -- ID del doctor
+    id INT PRIMARY KEY, -- ID del doctor
     nombre VARCHAR(100) NOT NULL, -- Nombre del doctor
     apellido VARCHAR(100) NOT NULL, -- Apellido del doctor
     especialidad VARCHAR(100) NOT NULL, -- Especialidad principal del doctor
-    telefono VARCHAR(20), -- Tel閒ono del doctor
+    telefono VARCHAR(20), -- Tel茅fono del doctor
     email VARCHAR(100) -- Email del doctor
 );
 
 -- Crear la tabla de citas
 CREATE TABLE Citas (
-    id INT IDENTITY(1,1) PRIMARY KEY, -- ID de la cita
-    id_paciente INT NOT NULL, -- ID del paciente (clave for醤ea)
-    id_doctor INT NOT NULL, -- ID del doctor (clave for醤ea)
+    id INT PRIMARY KEY, -- ID de la cita
+    id_paciente INT NOT NULL, -- ID del paciente (clave for谩nea)
+    id_doctor INT NOT NULL, -- ID del doctor (clave for谩nea)
     fecha_hora DATETIME NOT NULL, -- Fecha y hora de la cita
     motivo TEXT, -- Motivo de la cita
-    FOREIGN KEY (id_paciente) REFERENCES Pacientes(id), -- Relaci髇 con Pacientes
-    FOREIGN KEY (id_doctor) REFERENCES Doctores(id) -- Relaci髇 con Doctores
+    FOREIGN KEY (id_paciente) REFERENCES Pacientes(id), -- Relaci贸n con Pacientes
+    FOREIGN KEY (id_doctor) REFERENCES Doctores(id) -- Relaci贸n con Doctores
 );
 
 -- Crear la tabla de tratamientos
 CREATE TABLE Tratamientos (
-    id INT IDENTITY(1,1) PRIMARY KEY, -- ID del tratamiento
-    id_paciente INT NOT NULL, -- ID del paciente (clave for醤ea)
-    id_doctor INT NOT NULL, -- ID del doctor (clave for醤ea)
-    descripcion TEXT, -- Descripci髇 del tratamiento
+    id INT PRIMARY KEY, -- ID del tratamiento
+    id_paciente INT NOT NULL, -- ID del paciente (clave for谩nea)
+    id_doctor INT NOT NULL, -- ID del doctor (clave for谩nea)
+    descripcion TEXT, -- Descripci贸n del tratamiento
     fecha_inicio DATE, -- Fecha de inicio del tratamiento
     fecha_fin DATE, -- Fecha de fin del tratamiento
-    FOREIGN KEY (id_paciente) REFERENCES Pacientes(id), -- Relaci髇 con Pacientes
-    FOREIGN KEY (id_doctor) REFERENCES Doctores(id) -- Relaci髇 con Doctores
+    FOREIGN KEY (id_paciente) REFERENCES Pacientes(id), -- Relaci贸n con Pacientes
+    FOREIGN KEY (id_doctor) REFERENCES Doctores(id) -- Relaci贸n con Doctores
 );
 
--- Crear la tabla de diagn髎ticos
+-- Crear la tabla de diagn贸sticos
 CREATE TABLE Diagnosticos (
-    id INT IDENTITY(1,1) PRIMARY KEY, -- ID del diagn髎tico
-    id_paciente INT NOT NULL, -- ID del paciente (clave for醤ea)
-    id_doctor INT NOT NULL, -- ID del doctor (clave for醤ea)
-    fecha DATE NOT NULL, -- Fecha del diagn髎tico
-    descripcion TEXT, -- Descripci髇 del diagn髎tico
-    FOREIGN KEY (id_paciente) REFERENCES Pacientes(id), -- Relaci髇 con Pacientes
-    FOREIGN KEY (id_doctor) REFERENCES Doctores(id) -- Relaci髇 con Doctores
+    id INT PRIMARY KEY, -- ID del diagn贸stico
+    id_paciente INT NOT NULL, -- ID del paciente (clave for谩nea)
+    id_doctor INT NOT NULL, -- ID del doctor (clave for谩nea)
+    fecha DATE NOT NULL, -- Fecha del diagn贸stico
+    descripcion TEXT, -- Descripci贸n del diagn贸stico
+    FOREIGN KEY (id_paciente) REFERENCES Pacientes(id), -- Relaci贸n con Pacientes
+    FOREIGN KEY (id_doctor) REFERENCES Doctores(id) -- Relaci贸n con Doctores
 );
 
 -- Crear la tabla de especialidades
 CREATE TABLE Especialidades (
-    id INT IDENTITY(1,1) PRIMARY KEY, -- ID de la especialidad
+    id INT PRIMARY KEY, -- ID de la especialidad
     nombre VARCHAR(100) NOT NULL -- Nombre de la especialidad
 );
 
--- Crear la tabla de doctores_especialidades (relaci髇 muchos a muchos)
+-- Crear la tabla de doctores_especialidades (relaci贸n muchos a muchos)
 CREATE TABLE Doctores_Especialidades (
-    id_doctor INT NOT NULL, -- ID del doctor (clave primaria, clave for醤ea)
-    id_especialidad INT NOT NULL, -- ID de la especialidad (clave primaria, clave for醤ea)
+    id_doctor INT NOT NULL, -- ID del doctor (clave primaria, clave for谩nea)
+    id_especialidad INT NOT NULL, -- ID de la especialidad (clave primaria, clave for谩nea)
     PRIMARY KEY (id_doctor, id_especialidad), -- Clave primaria compuesta
-    FOREIGN KEY (id_doctor) REFERENCES Doctores(id), -- Relaci髇 con Doctores
-    FOREIGN KEY (id_especialidad) REFERENCES Especialidades(id) -- Relaci髇 con Especialidades
+    FOREIGN KEY (id_doctor) REFERENCES Doctores(id), -- Relaci贸n con Doctores
+    FOREIGN KEY (id_especialidad) REFERENCES Especialidades(id) -- Relaci贸n con Especialidades
 );
 
--- Crear la tabla HistorialTelefonos para guardar los cambios de tel閒ono de los pacientes
+-- Crear la tabla HistorialTelefonos para guardar los cambios de tel茅fono de los pacientes
 CREATE TABLE HistorialTelefonos (
-    id INT IDENTITY(1,1) PRIMARY KEY, -- ID del registro de historial
-    id_paciente INT, -- ID del paciente cuyo tel閒ono ha cambiado
-    telefono_anterior VARCHAR(20), -- Tel閒ono anterior del paciente
-    telefono_nuevo VARCHAR(20), -- Nuevo tel閒ono del paciente
+    id INT PRIMARY KEY, -- ID del registro de historial
+    id_paciente INT, -- ID del paciente cuyo tel茅fono ha cambiado
+    telefono_anterior VARCHAR(20), -- Tel茅fono anterior del paciente
+    telefono_nuevo VARCHAR(20), -- Nuevo tel茅fono del paciente
     fecha_cambio DATETIME DEFAULT GETDATE(), -- Fecha y hora del cambio
-    FOREIGN KEY (id_paciente) REFERENCES Pacientes(id) -- Relaci髇 con Pacientes
+    FOREIGN KEY (id_paciente) REFERENCES Pacientes(id) -- Relaci贸n con Pacientes
 );
 
 -- Insertar datos en Pacientes
-INSERT INTO Pacientes (nombre, apellido, fecha_nacimiento, direccion, telefono, email, genero) VALUES
-('Juan', 'P閞ez', '1980-05-15', 'Av. Siempre Viva 123', '555-1234', 'juan.perez@example.com', 'Masculino'),
-('Mar韆', 'Gonz醠ez', '1992-10-30', 'Calle Falsa 456', '555-5678', 'maria.gonzalez@example.com', 'Femenino');
+INSERT INTO Pacientes (id, nombre, apellido, fecha_nacimiento, direccion, telefono, email, genero) VALUES
+(1, 'Juan', 'P茅rez', '1980-05-15', 'Av. Siempre Viva 123', '555-1234', 'juan.perez@example.com', 'Masculino'),
+(2, 'Mar铆a', 'Gonz谩lez', '1992-10-30', 'Calle Falsa 456', '555-5678', 'maria.gonzalez@example.com', 'Femenino');
 
 -- Insertar datos en Doctores
-INSERT INTO Doctores (nombre, apellido, especialidad, telefono, email) VALUES
-('Ana', 'L髉ez', 'Cardiolog韆', '555-8765', 'ana.lopez@example.com'),
-('Carlos', 'Mart韓ez', 'Pediatr韆', '555-4321', 'carlos.martinez@example.com');
+INSERT INTO Doctores (id, nombre, apellido, especialidad, telefono, email) VALUES
+(1, 'Ana', 'L贸pez', 'Cardiolog铆a', '555-8765', 'ana.lopez@example.com'),
+(2, 'Carlos', 'Mart铆nez', 'Pediatr铆a', '555-4321', 'carlos.martinez@example.com');
 
 -- Insertar datos en Especialidades
-INSERT INTO Especialidades (nombre) VALUES
-('Cardiolog韆'),
-('Pediatr韆'),
-('Neurolog韆');
+INSERT INTO Especialidades (id, nombre) VALUES
+(1, 'Cardiolog铆a'),
+(2, 'Pediatr铆a'),
+(3, 'Neurolog铆a');
 
 -- Insertar datos en Doctores_Especialidades
 INSERT INTO Doctores_Especialidades (id_doctor, id_especialidad) VALUES
@@ -107,16 +107,16 @@ INSERT INTO Doctores_Especialidades (id_doctor, id_especialidad) VALUES
 (2, 2);
 
 -- Insertar datos en Citas
-INSERT INTO Citas (id_paciente, id_doctor, fecha_hora, motivo) VALUES
-(1, 1, '2024-09-05 09:00:00', 'Chequeo general'),
-(2, 2, '2024-09-06 10:30:00', 'Consulta pedi醫rica');
+INSERT INTO Citas (id, id_paciente, id_doctor, fecha_hora, motivo) VALUES
+(1, 1, 1, '2024-09-05 09:00:00', 'Chequeo general'),
+(2, 2, 2, '2024-09-06 10:30:00', 'Consulta pedi谩trica');
 
 -- Insertar datos en Tratamientos
-INSERT INTO Tratamientos (id_paciente, id_doctor, descripcion, fecha_inicio, fecha_fin) VALUES
-(1, 1, 'Tratamiento para hipertensi髇', '2024-01-10', '2024-04-10'),
-(2, 2, 'Tratamiento para alergias', '2024-02-15', '2024-03-15');
+INSERT INTO Tratamientos (id, id_paciente, id_doctor, descripcion, fecha_inicio, fecha_fin) VALUES
+(1, 1, 1, 'Tratamiento para hipertensi贸n', '2024-01-10', '2024-04-10'),
+(2, 2, 2, 'Tratamiento para alergias', '2024-02-15', '2024-03-15');
 
 -- Insertar datos en Diagnosticos
-INSERT INTO Diagnosticos (id_paciente, id_doctor, fecha, descripcion) VALUES
-(1, 1, '2024-03-01', 'Diagn髎tico de hipertensi髇 leve'),
-(2, 2, '2024-02-20', 'Diagn髎tico de alergia estacional');
+INSERT INTO Diagnosticos (id, id_paciente, id_doctor, fecha, descripcion) VALUES
+(1, 1, 1, '2024-03-01', 'Diagn贸stico de hipertensi贸n leve'),
+(2, 2, 2, '2024-02-20', 'Diagn贸stico de alergia estacional');
