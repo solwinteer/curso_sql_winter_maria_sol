@@ -1,11 +1,16 @@
-CREATE FUNCTION f_CitasProximas (@dias INT)
+DELIMITER $$
+
+CREATE FUNCTION f_CitasProximas(dias INT)
 RETURNS INT
-AS
+DETERMINISTIC
 BEGIN
-    DECLARE @total INT;
-    SELECT @total = COUNT(*)
+    DECLARE total INT;
+
+    SELECT COUNT(*) INTO total
     FROM Citas
-    WHERE fecha_hora BETWEEN GETDATE() AND DATEADD(DAY, @dias, GETDATE());
+    WHERE fecha_hora BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL dias DAY);
     
-    RETURN @total;
-END;
+    RETURN total;
+END$$
+
+DELIMITER ;

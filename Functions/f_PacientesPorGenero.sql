@@ -1,11 +1,16 @@
-CREATE FUNCTION f_PacientesPorGenero (@genero_param VARCHAR(100))
+DELIMITER $$
+
+CREATE FUNCTION f_PacientesPorGenero(genero_param VARCHAR(100))
 RETURNS INT
-AS
+DETERMINISTIC
 BEGIN
-    DECLARE @total INT;
-    SELECT @total = COUNT(*)
+    DECLARE total INT;
+
+    SELECT COUNT(*) INTO total
     FROM Pacientes
-    WHERE genero = @genero_param;
+    WHERE genero = genero_param;
     
-    RETURN @total;
-END;
+    RETURN total;
+END$$
+
+DELIMITER ;
