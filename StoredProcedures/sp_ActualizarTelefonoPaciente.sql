@@ -1,21 +1,18 @@
-CREATE PROCEDURE sp_ActualizarTelefonoPaciente
-@id_paciente INT,
-@nuevo_telefono VARCHAR(20)
-AS
+DELIMITER $$
+
+CREATE PROCEDURE sp_ActualizarTelefonoPaciente(
+    IN id_paciente INT,
+    IN nuevo_telefono VARCHAR(20)
+)
 BEGIN
     UPDATE Pacientes
-    SET telefono = @nuevo_telefono
-    WHERE id = @id_paciente;
-END;
+    SET telefono = nuevo_telefono
+    WHERE id = id_paciente;
 
-CREATE PROCEDURE sp_ObtenerCitasPorDoctor
-@id_doctor INT,
-@fecha_inicio DATETIME,
-@fecha_fin DATETIME
-AS
-BEGIN
-    SELECT * 
-    FROM Citas
-    WHERE id_doctor = @id_doctor
-    AND fecha_hora BETWEEN @fecha_inicio AND @fecha_fin;
-END;
+    INSERT INTO HistorialTelefonos (id_paciente, telefono_anterior, telefono_nuevo, fecha_cambio)
+    SELECT id, telefono, nuevo_telefono, NOW()
+    FROM Pacientes
+    WHERE id = id_paciente;
+END$$
+
+DELIMITER ;
